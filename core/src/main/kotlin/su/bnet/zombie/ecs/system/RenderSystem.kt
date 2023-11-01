@@ -1,22 +1,43 @@
 package su.bnet.zombie.ecs.system
 
-import com.badlogic.ashley.core.Component
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.Family
 import com.badlogic.ashley.systems.SortedIteratingSystem
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Batch
-import ktx.ashley.get
+import com.badlogic.gdx.maps.tiled.TiledMap
+import com.badlogic.gdx.maps.tiled.TmxMapLoader
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
+import com.badlogic.gdx.math.Matrix4
+import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.graphics.use
 import su.bnet.zombie.ecs.component.RenderComponent
 import su.bnet.zombie.ecs.require
+import su.bnet.zombie.game.screens.GameScreen
 
-class RenderSystem(private val batch: Batch) : SortedIteratingSystem(family, comparator) {
+
+class RenderSystem(
+    private val camera: OrthographicCamera,
+//    private val viewport: Viewport,
+    private val batch: Batch
+) : SortedIteratingSystem(family, comparator) {
+    private val map: TiledMap
+    private val renderer: OrthogonalTiledMapRenderer
+    init {
+        map = TmxMapLoader().load("atlas/preview.tmx")
+        renderer = OrthogonalTiledMapRenderer(map, GameScreen.World.unitScale, batch)
+        renderer.setView(camera)
+    }
+
     override fun processEntity(entity: Entity, deltaTime: Float) {
         entity.sprite.draw(batch)
     }
 
     override fun update(deltaTime: Float) {
-        batch.use {
+        camera.update()
+        renderer.setView(camera)
+        renderer.render()
+        batch.use(camera) {
             super.update(deltaTime)
         }
     }
