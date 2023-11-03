@@ -8,6 +8,7 @@ import su.bnet.zombie.ecs.events.Events
 import su.bnet.zombie.ecs.events.Hello
 import su.bnet.zombie.game.screens.GameScreen
 import su.bnet.zombie.input.Inputs
+import su.bnet.zombie.utility.Delay
 
 class Player(
     entity: Entity,
@@ -28,8 +29,10 @@ class Player(
 
     private val ic = GameInputComponent(::onKey, ::onMouseMove)
     private val ec = EventComponent("player", ::onEvent)
+    private val ac = ActComponent(::onAct)
 
     private val lookAt = Vector2()
+    private val file = Delay(1f, ::onFire)
 
     val position
         get() = tc.position
@@ -41,6 +44,7 @@ class Player(
             add(mc)
             add(ic)
             add(ec)
+            add(ac)
         }
     }
 
@@ -58,7 +62,7 @@ class Player(
             else -> mc.velocity.y = 0f
         }
 
-        if (keys.contains(Inputs.FIRE)) ec.send(Hello("player"))
+        if (keys.contains(Inputs.FIRE)) file.run()
 
         return true
     }
@@ -71,5 +75,13 @@ class Player(
 
     private fun onEvent(event: Events, from: Entity) {
         println("event $event, from $from")
+    }
+
+    private fun onAct(deltaTime: Float) {
+        file.update(deltaTime)
+    }
+
+    private fun onFire() {
+        ec.send(Hello("player"))
     }
 }

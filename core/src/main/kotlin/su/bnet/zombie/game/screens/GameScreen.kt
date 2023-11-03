@@ -38,6 +38,7 @@ class GameScreen : KtxScreen {
 
     private val gis = GameInputSystem(camera)
     private val es = EventSystem(engine)
+    private val act = ActSystem()
     private val ts = TransformationSystem()
     //private val vs = VelocitySystem()
     private val ms = MovementSystem()
@@ -60,6 +61,7 @@ class GameScreen : KtxScreen {
         player = Player(pe, playerSprite)
         engine.addEntity(pe)
         engine.addSystem(gis)
+        engine.addSystem(act)
         engine.addSystem(es)
         engine.addSystem(ts)
         //engine.addSystem(vs)

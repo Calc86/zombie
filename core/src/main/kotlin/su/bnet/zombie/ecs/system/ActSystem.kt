@@ -8,6 +8,6 @@ import su.bnet.zombie.ecs.require
 
 class ActSystem : IteratingSystem(Family.all(ActComponent::class.java).get()) {
     override fun processEntity(entity: Entity, deltaTime: Float) {
-        val ac = ActComponent.on(entity).require().onAct.invoke(deltaTime)
+        ActComponent.on(entity).require().onAct.invoke(deltaTime)
     }
 }
