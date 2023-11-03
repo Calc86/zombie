@@ -6,8 +6,18 @@ import com.badlogic.gdx.InputProcessor
 import ktx.app.KtxInputAdapter
 
 class InputController: KtxInputAdapter {
+    val inputMap = mutableMapOf<Inputs, Float>()
     init {
-        Gdx.input.isButtonPressed(Input.Buttons.LEFT)
+        inputMap.apply {
+            Inputs.entries.forEach { put(it, 0f) }
+        }
     }
 
+    override fun keyDown(keycode: Int): Boolean {
+        return super.keyDown(keycode)
+    }
+
+    override fun keyUp(keycode: Int): Boolean {
+        return super.keyUp(keycode)
+    }
 }
