@@ -16,6 +16,8 @@ class GameInputSystem(private val camera: Camera) : IteratingSystem(Family.all(G
     private val inputMap = mutableSetOf<Inputs>()
     private val tmpMouseXY = Vector3()
     private val mousePosition = Vector2()
+    private var screenX = 0
+    private var screenY = 0
     //private var mouseDown: Vector2? = null
 
     override fun update(deltaTime: Float) {
@@ -24,6 +26,7 @@ class GameInputSystem(private val camera: Camera) : IteratingSystem(Family.all(G
             if (processEntityKey(entity)) break
         }
         // mouse process
+        updateMousePosition(screenX, screenY)
         for (entity in entities) {
             if(processMouseMove(entity)) break
         }
@@ -49,18 +52,20 @@ class GameInputSystem(private val camera: Camera) : IteratingSystem(Family.all(G
     }
 
     override fun mouseMoved(screenX: Int, screenY: Int): Boolean {
-        updateMousePosition(screenX, screenY)
+        this.screenX = screenX
+        this.screenY = screenY
+        //updateMousePosition(screenX, screenY)
         return true
     }
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-        updateMousePosition(screenX, screenY)
+        //updateMousePosition(screenX, screenY)
         inputMap.add(Inputs.ACTION)
         return true
     }
 
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-        updateMousePosition(screenX, screenY)
+        //updateMousePosition(screenX, screenY)
         inputMap.remove(Inputs.ACTION)
         return true
     }
