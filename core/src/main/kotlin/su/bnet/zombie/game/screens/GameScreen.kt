@@ -65,6 +65,8 @@ class GameScreen : KtxScreen {
         object Screen {
             const val width = 16f
             const val height = 9f
+//            const val width = 9f / 2
+//            const val height = 16f / 2
         }
 
     }
