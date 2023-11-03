@@ -7,7 +7,7 @@ import ktx.ashley.get
 import ktx.ashley.mapperFor
 
 class MovementComponent(
-    val velocity: Vector2 = Vector2(Vector2.Zero),
+    val velocity: Vector2 = Vector2(),
     val maxVelocity: Float = 0f
 ) : Component {
     companion object {

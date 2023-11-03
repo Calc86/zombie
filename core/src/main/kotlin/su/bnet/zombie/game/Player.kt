@@ -18,14 +18,16 @@ class Player(
     private val rc = RenderComponent(sprite)
     private val tc = TransformationComponent(
         size = Vector2(sprite.width * GameScreen.World.unitScale, sprite.height * GameScreen.World.unitScale),
-//        scale = Vector2(GameScreen.World.unitScale, GameScreen.World.unitScale)
     )
 
     private val mc = MovementComponent(
-        maxVelocity = 2f
+        maxVelocity = 5f
     )
 
     private val ic = GameInputComponent(::onKey)
+
+    val position
+        get() = tc.position
 
     init {
         entity.apply {

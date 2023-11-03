@@ -31,6 +31,8 @@ class GameScreen : KtxScreen {
     private val ms = MovementSystem()
     private val rs = RenderSystem(camera, batch)
 
+    lateinit var player: Player
+
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height)
     }
@@ -42,7 +44,8 @@ class GameScreen : KtxScreen {
 //        camera.update()
         Gdx.input.inputProcessor = gis;
         val pe = Entity()
-        val player = Player(pe, Sprite(image))
+
+        player = Player(pe, Sprite(image))
         engine.addEntity(pe)
         engine.addSystem(gis)
         engine.addSystem(ts)
@@ -53,6 +56,7 @@ class GameScreen : KtxScreen {
 
     override fun render(delta: Float) {
         clearScreen(red = 1f, green = 0f, blue = 0f)
+        camera.position.set(player.position.x, player.position.y, 0f)
         engine.update(delta)
     }
 

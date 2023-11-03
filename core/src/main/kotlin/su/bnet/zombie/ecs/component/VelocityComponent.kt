@@ -7,8 +7,8 @@ import ktx.ashley.get
 import ktx.ashley.mapperFor
 
 class VelocityComponent(
-    val velocity: Vector2 = Vector2(Vector2.Zero),
-    val force: Vector2 = Vector2(Vector2.Zero),
+    val velocity: Vector2 = Vector2(),
+    val force: Vector2 = Vector2(),
     val friction: Float = 0f,
     val max: Max = Max()
 ) : Component {

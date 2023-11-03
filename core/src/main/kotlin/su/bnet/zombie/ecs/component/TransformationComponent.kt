@@ -9,8 +9,8 @@ import ktx.ashley.get
 import ktx.ashley.mapperFor
 
 class TransformationComponent(
-    val position: Vector2 = Vector2(Vector2.Zero),
-    val size: Vector2 = Vector2(Vector2.Zero),
+    val position: Vector2 = Vector2(),
+    val size: Vector2 = Vector2(),
     val scale: Vector2 = Vector2(1f, 1f),
     var angle: Float = 0f
 ) : Component {
