@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.viewport.FitViewport
 import ktx.app.KtxScreen
@@ -19,14 +20,23 @@ import su.bnet.zombie.game.Player
 class GameScreen : KtxScreen {
     private val camera = OrthographicCamera()
     private val viewport = FitViewport(World.Screen.width, World.Screen.height, camera)
-    private val image = Texture("logo.png".toInternalFile(), true).apply { setFilter(
-        Texture.TextureFilter.Linear,
-        Texture.TextureFilter.Linear
-    ) }
+    private val image = Texture("logo.png".toInternalFile(), true).apply {
+        setFilter(
+            Texture.TextureFilter.Linear,
+            Texture.TextureFilter.Linear
+        )
+    }
+    private val atlas = TextureAtlas(Gdx.files.internal("atlas/person.atlas"))
+    private val playerSprite = atlas.createSprite("hitman1_gun").apply {
+        //setOriginCenter()
+        //rotation = 70f
+    }
+
     private val batch = SpriteBatch()
     private val engine = Engine()
     private val gis = GameInputSystem()
     private val ts = TransformationSystem()
+
     //private val vs = VelocitySystem()
     private val ms = MovementSystem()
     private val rs = RenderSystem(camera, batch)
@@ -45,7 +55,7 @@ class GameScreen : KtxScreen {
         Gdx.input.inputProcessor = gis;
         val pe = Entity()
 
-        player = Player(pe, Sprite(image))
+        player = Player(pe, playerSprite)
         engine.addEntity(pe)
         engine.addSystem(gis)
         engine.addSystem(ts)
@@ -66,7 +76,8 @@ class GameScreen : KtxScreen {
     }
 
     object World {
-        const val unitScale = 1/64f
+        const val unitScale = 1 / 64f
+
         object Screen {
             const val width = 16f
             const val height = 9f

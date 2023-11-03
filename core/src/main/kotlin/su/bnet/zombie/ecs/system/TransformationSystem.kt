@@ -14,7 +14,8 @@ class TransformationSystem : IteratingSystem(family) {
         rc.sprite.apply {
             // todo avoid dirty
             rotation = tc.angle
-            setPosition(tc.position.x, tc.position.y)
+            //setPosition(tc.position.x, tc.position.y) // old
+            setOriginBasedPosition(tc.position.x, tc.position.y)    // check
             setSize(tc.size.x, tc.size.y)
             setScale(tc.scale.x, tc.scale.y)
         }

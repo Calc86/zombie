@@ -18,7 +18,11 @@ class Player(
     private val rc = RenderComponent(sprite)
     private val tc = TransformationComponent(
         size = Vector2(sprite.width * GameScreen.World.unitScale, sprite.height * GameScreen.World.unitScale),
-    )
+    ).apply {
+        sprite.setSize(size.x, size.y)
+        sprite.setOriginCenter()
+        angle = 70f // for test
+    }
 
     private val mc = MovementComponent(
         maxVelocity = 5f
