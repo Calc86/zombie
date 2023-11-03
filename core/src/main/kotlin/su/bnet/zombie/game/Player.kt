@@ -3,10 +3,9 @@ package su.bnet.zombie.game
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Vector2
-import su.bnet.zombie.ecs.component.GameInputComponent
-import su.bnet.zombie.ecs.component.MovementComponent
-import su.bnet.zombie.ecs.component.RenderComponent
-import su.bnet.zombie.ecs.component.TransformationComponent
+import su.bnet.zombie.ecs.component.*
+import su.bnet.zombie.ecs.events.Events
+import su.bnet.zombie.ecs.events.Hello
 import su.bnet.zombie.game.screens.GameScreen
 import su.bnet.zombie.input.Inputs
 
@@ -28,6 +27,7 @@ class Player(
     )
 
     private val ic = GameInputComponent(::onKey, ::onMouseMove)
+    private val ec = EventComponent("player", ::onEvent)
 
     private val lookAt = Vector2()
 
@@ -40,6 +40,7 @@ class Player(
             add(tc)
             add(mc)
             add(ic)
+            add(ec)
         }
     }
 
@@ -57,6 +58,8 @@ class Player(
             else -> mc.velocity.y = 0f
         }
 
+        if (keys.contains(Inputs.FIRE)) ec.send(Hello("player"))
+
         return true
     }
 
@@ -64,5 +67,9 @@ class Player(
         lookAt.set(mouse).sub(tc.position)
         tc.angle = lookAt.angleDeg()
         return false
+    }
+
+    private fun onEvent(event: Events, from: Entity) {
+        println("event $event, from $from")
     }
 }

@@ -8,7 +8,8 @@ import su.bnet.zombie.ecs.component.MovementComponent
 import su.bnet.zombie.ecs.component.TransformationComponent
 import su.bnet.zombie.ecs.require
 
-class MovementSystem : IteratingSystem(Family.all(TransformationComponent::class.java, MovementComponent::class.java).get()) {
+class MovementSystem :
+    IteratingSystem(Family.all(TransformationComponent::class.java, MovementComponent::class.java).get()) {
     private val scalar = Vector2()
 
     override fun processEntity(entity: Entity, deltaTime: Float) {

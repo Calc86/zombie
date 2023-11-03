@@ -34,9 +34,11 @@ class GameScreen : KtxScreen {
 
     private val batch = SpriteBatch()
     private val engine = Engine()
-    private val gis = GameInputSystem(camera)
-    private val ts = TransformationSystem()
 
+
+    private val gis = GameInputSystem(camera)
+    private val es = EventSystem(engine)
+    private val ts = TransformationSystem()
     //private val vs = VelocitySystem()
     private val ms = MovementSystem()
     private val rs = RenderSystem(camera, batch)
@@ -58,6 +60,7 @@ class GameScreen : KtxScreen {
         player = Player(pe, playerSprite)
         engine.addEntity(pe)
         engine.addSystem(gis)
+        engine.addSystem(es)
         engine.addSystem(ts)
         //engine.addSystem(vs)
         engine.addSystem(ms)
