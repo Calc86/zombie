@@ -18,8 +18,5 @@ class MovementSystem : IteratingSystem(Family.all(TransformationComponent::class
         scalar.set(mc.velocity).nor().scl(mc.maxVelocity).scl(deltaTime)
         //scalar.set(mc.velocity).nor().scl(mc.maxVelocity).scl(deltaTime)
         tc.position.add(scalar)
-        println("v:" + mc.velocity)
-        println("s:" + scalar)
-        println("p:" + tc.position)
     }
 }

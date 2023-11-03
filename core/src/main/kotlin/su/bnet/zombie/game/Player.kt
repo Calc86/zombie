@@ -1,7 +1,6 @@
 package su.bnet.zombie.game
 
 import com.badlogic.ashley.core.Entity
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Vector2
 import su.bnet.zombie.ecs.component.GameInputComponent
@@ -28,7 +27,9 @@ class Player(
         maxVelocity = 5f
     )
 
-    private val ic = GameInputComponent(::onKey)
+    private val ic = GameInputComponent(::onKey, ::onMouseMove)
+
+    private val lookAt = Vector2()
 
     val position
         get() = tc.position
@@ -47,7 +48,7 @@ class Player(
         when {
             keys.contains(Inputs.LEFT) -> mc.velocity.x = -mc.maxVelocity
             keys.contains(Inputs.RIGHT) -> mc.velocity.x = mc.maxVelocity
-            else ->  mc.velocity.x = 0f
+            else -> mc.velocity.x = 0f
         }
 
         when {
@@ -57,5 +58,11 @@ class Player(
         }
 
         return true
+    }
+
+    private fun onMouseMove(mouse: Vector2): Boolean {
+        lookAt.set(mouse).sub(tc.position)
+        tc.angle = lookAt.angleDeg()
+        return false
     }
 }
