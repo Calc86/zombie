@@ -55,12 +55,13 @@ class GameInputSystem(private val camera: Camera) : IteratingSystem(Family.all(G
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         updateMousePosition(screenX, screenY)
-        inputMap.add(Inputs.FIRE)
+        inputMap.add(Inputs.ACTION)
         return true
     }
 
     override fun touchUp(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-        inputMap.remove(Inputs.FIRE)
+        updateMousePosition(screenX, screenY)
+        inputMap.remove(Inputs.ACTION)
         return true
     }
 
