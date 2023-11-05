@@ -14,7 +14,9 @@ import ktx.app.clearScreen
 import ktx.assets.disposeSafely
 import ktx.assets.toInternalFile
 import su.bnet.zombie.ecs.system.*
+import su.bnet.zombie.game.ItemsFactory
 import su.bnet.zombie.game.Player
+import su.bnet.zombie.items.Explosion
 import su.bnet.zombie.utility.MyAnimation
 
 
@@ -46,8 +48,11 @@ class GameScreen : KtxScreen {
     private val ms = MovementSystem()
     private val rs = RenderSystem(camera, batch)
 
+    private val creator = ItemsFactory(fireAtlas)
+
     lateinit var player: Player
     lateinit var blow: MyAnimation
+    lateinit var explosion: Explosion
 
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height)
@@ -61,11 +66,13 @@ class GameScreen : KtxScreen {
         Gdx.input.inputProcessor = gis;
         val pe = Entity()
 
-        player = Player(pe, playerSprite)
+        player = Player(pe, playerSprite, creator)
+        explosion = creator.createSonicExplosion()
         blow = MyAnimation(Sprite(image), fireAtlas.findRegions("regularExplosion"), 2f)
 
         engine.addEntity(pe)
-        engine.addEntity(blow.entity)
+//        engine.addEntity(blow.entity)
+//        engine.addEntity(explosion.entity)
 
         engine.addSystem(gis)
         engine.addSystem(act)

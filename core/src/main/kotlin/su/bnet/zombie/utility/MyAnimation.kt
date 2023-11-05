@@ -45,7 +45,7 @@ class MyAnimation(
             sprite.setSize(size.x, size.y)
             sprite.setPosition(0f, 0f)
             sprite.setOriginCenter()
-            println("=(${sprite.x}, ${sprite.y}, ${sprite.width}, ${sprite.height})")
+//            println("=(${sprite.x}, ${sprite.y}, ${sprite.width}, ${sprite.height})")
         }
     }
 }

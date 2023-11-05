@@ -15,3 +15,5 @@ class Hello(to: String) : GameEvents(to)
 open class SystemEvents(val to: System) : Events()
 
 class Remove(val entity: Entity) : SystemEvents(System.ENGINE)
+
+class Add(val entity: Entity) : SystemEvents(System.ENGINE)

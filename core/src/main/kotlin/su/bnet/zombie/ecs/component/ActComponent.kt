@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Entity
 import ktx.ashley.get
 import ktx.ashley.mapperFor
 
-class ActComponent(val onAct: (deltaTime: Float) -> Unit) : Component {
+open class ActComponent(val onAct: (deltaTime: Float) -> Unit) : Component {
     companion object {
         val mapper = mapperFor<ActComponent>()
 

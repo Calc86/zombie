@@ -29,7 +29,7 @@ class RenderSystem(
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         entity.sprite.draw(batch)
-        println("(${entity.sprite.x}, ${entity.sprite.y}, ${entity.sprite.width}, ${entity.sprite.height})")
+//        println("(${entity.sprite.x}, ${entity.sprite.y}, ${entity.sprite.width}, ${entity.sprite.height})")
     }
 
     override fun update(deltaTime: Float) {

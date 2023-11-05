@@ -1,9 +1,7 @@
 package su.bnet.zombie.items
 
-import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.utils.Array
@@ -17,7 +15,7 @@ class Explosion(
     textures: Array<TextureAtlas.AtlasRegion>,
     duration: Float,
     playMode: PlayMode = PlayMode.LOOP
-) {
+): TtlItem(duration) {
     private val frameDuration = duration / textures.size
     private val animation = Animation<TextureRegion>(frameDuration, textures, playMode)
     private var sprite = AnimatedSprite(animation).apply {
@@ -25,18 +23,20 @@ class Explosion(
         isUseFrameRegionSize = true
     }
     private val rc = RenderComponent(sprite)
-    private val ac = ActComponent(::onAct)
     private val tc = TransformationComponent()
+//    private val ac = ActComponent(::onAct)
 
-    val entity = Entity().apply {
-        add(rc)
-        add(tc)
-        add(ac)
-//        tc.debugName = "anim"
+    init {
+        entity.apply {
+            add(rc)
+            add(tc)
+//            add(ac)
+        }
     }
 
-    private fun onAct(dt: Float) {
-        sprite.update(dt)
+    override fun onAct(deltaTime: Float) {
+        super.onAct(deltaTime)
+        sprite.update(deltaTime)
         tc.apply {
 //            size.set(sprite.width * GameScreen.World.unitScale, sprite.height * GameScreen.World.unitScale)
             size.set(sprite.width, sprite.height)
@@ -44,7 +44,7 @@ class Explosion(
             sprite.setSize(size.x, size.y)
             sprite.setPosition(0f, 0f)
             sprite.setOriginCenter()
-            println("=(${sprite.x}, ${sprite.y}, ${sprite.width}, ${sprite.height})")
+//            println("=(${sprite.x}, ${sprite.y}, ${sprite.width}, ${sprite.height})")
         }
     }
 

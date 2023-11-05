@@ -19,9 +19,6 @@ class EventSystem(private val engine: Engine) : IteratingSystem(Family.all(Event
         }.flatten()
         val receivers = senders.map { it.second }.filter { c -> c.isReceiver }
         events.forEach { (entity, event) -> handleEvent(entity, event, receivers) }
-//        println("senders " + senders.size)
-//        println("events " + events.size)
-//        println("receivers " + receivers.size)
     }
 
     private fun handleEvent(sender: Entity, event: Events, receivers: List<EventComponent>) {
@@ -36,7 +33,8 @@ class EventSystem(private val engine: Engine) : IteratingSystem(Family.all(Event
 
     private fun handleSystemEvent(sender: Entity, event: SystemEvents) {
         when (event) {
-            is Remove -> engine.removeEntity(sender)
+            is Remove -> engine.removeEntity(event.entity)
+            is Add -> engine.addEntity(event.entity)
         }
     }
 

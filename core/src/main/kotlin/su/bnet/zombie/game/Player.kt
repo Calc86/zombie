@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.Vector2
 import su.bnet.zombie.ecs.component.*
+import su.bnet.zombie.ecs.events.Add
 import su.bnet.zombie.ecs.events.Events
 import su.bnet.zombie.ecs.events.Hello
 import su.bnet.zombie.game.screens.GameScreen
@@ -13,6 +14,7 @@ import su.bnet.zombie.utility.Delay
 class Player(
     entity: Entity,
     sprite: Sprite,
+    private val factory: ItemsFactory
 ) {
     private val rc = RenderComponent(sprite)
     private val tc = TransformationComponent(
@@ -33,7 +35,7 @@ class Player(
     private val ac = ActComponent(::onAct)
 
     private val lookAt = Vector2()
-    private val file = Delay(1f, onRun = ::onFire)
+    private val fire = Delay(1f, onRun = ::onFire)
 
     val position
         get() = tc.position
@@ -63,7 +65,7 @@ class Player(
             else -> mc.velocity.y = 0f
         }
 
-        if (keys.contains(Inputs.FIRE)) file.run()
+        if (keys.contains(Inputs.FIRE)) fire.run()
 
         return true
     }
@@ -79,10 +81,11 @@ class Player(
     }
 
     private fun onAct(deltaTime: Float) {
-        file.update(deltaTime)
+        fire.update(deltaTime)
     }
 
     private fun onFire() {
+        ec.send(Add(factory.createExplosion().entity))
         ec.send(Hello("player"))
     }
 }

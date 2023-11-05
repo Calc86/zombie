@@ -22,7 +22,7 @@ class VelocitySystem : IteratingSystem(Family.all(TransformationComponent::class
             tmpAcceleration.set(force)
             val acceleration = MathUtils.clamp(tmpAcceleration.len() - friction, 0f, max.acceleration)
             tmpAcceleration.nor().scl(acceleration)
-            println("a: " + tmpAcceleration)
+//            println("a: " + tmpAcceleration)
             tmpAcceleration//.scl(deltaTime)
         }.also {
             vc.force.set(it)
@@ -32,7 +32,7 @@ class VelocitySystem : IteratingSystem(Family.all(TransformationComponent::class
             tmpVelocity.set(velocity)
             tmpVelocity.add(acceleration)
             if(velocity.len() > max.speed) tmpVelocity.nor().scl(max.speed)
-            println("v:" + tmpVelocity)
+//            println("v:" + tmpVelocity)
             tmpVelocity
         }.also {
             vc.velocity.set(it)
