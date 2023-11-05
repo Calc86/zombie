@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.math.Vector3
 import com.badlogic.gdx.utils.viewport.FitViewport
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
@@ -16,6 +15,8 @@ import ktx.assets.disposeSafely
 import ktx.assets.toInternalFile
 import su.bnet.zombie.ecs.system.*
 import su.bnet.zombie.game.Player
+import su.bnet.zombie.utility.MyAnimation
+
 
 class GameScreen : KtxScreen {
     private val camera = OrthographicCamera()
@@ -26,8 +27,9 @@ class GameScreen : KtxScreen {
             Texture.TextureFilter.Linear
         )
     }
-    private val atlas = TextureAtlas(Gdx.files.internal("atlas/person.atlas"))
-    private val playerSprite = atlas.createSprite("hitman1_gun").apply {
+    private val personAtlas = TextureAtlas(Gdx.files.internal("atlas/person.atlas"))
+    private val fireAtlas = TextureAtlas(Gdx.files.internal("atlas/fire.atlas"))
+    private val playerSprite = personAtlas.createSprite("hitman1_gun").apply {
         //setOriginCenter()
         //rotation = 70f
     }
@@ -45,6 +47,7 @@ class GameScreen : KtxScreen {
     private val rs = RenderSystem(camera, batch)
 
     lateinit var player: Player
+    lateinit var blow: MyAnimation
 
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height)
@@ -59,7 +62,11 @@ class GameScreen : KtxScreen {
         val pe = Entity()
 
         player = Player(pe, playerSprite)
+        blow = MyAnimation(Sprite(image), fireAtlas.findRegions("regularExplosion"), 2f)
+
         engine.addEntity(pe)
+        engine.addEntity(blow.entity)
+
         engine.addSystem(gis)
         engine.addSystem(act)
         engine.addSystem(es)

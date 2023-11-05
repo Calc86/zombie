@@ -16,7 +16,8 @@ class Player(
 ) {
     private val rc = RenderComponent(sprite)
     private val tc = TransformationComponent(
-        size = Vector2(sprite.width * GameScreen.World.unitScale, sprite.height * GameScreen.World.unitScale),
+        size = Vector2(sprite.width, sprite.height),
+        scale = Vector2(GameScreen.World.unitScale, GameScreen.World.unitScale),
     ).apply {
         sprite.setSize(size.x, size.y)
         sprite.setOriginCenter()
@@ -32,7 +33,7 @@ class Player(
     private val ac = ActComponent(::onAct)
 
     private val lookAt = Vector2()
-    private val file = Delay(1f, ::onFire)
+    private val file = Delay(1f, onRun = ::onFire)
 
     val position
         get() = tc.position

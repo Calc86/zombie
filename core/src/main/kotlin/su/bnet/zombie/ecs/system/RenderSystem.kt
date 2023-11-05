@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.maps.tiled.TiledMap
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
-import com.badlogic.gdx.math.Matrix4
-import com.badlogic.gdx.utils.viewport.Viewport
 import ktx.graphics.use
 import su.bnet.zombie.ecs.component.RenderComponent
 import su.bnet.zombie.ecs.require
@@ -31,6 +29,7 @@ class RenderSystem(
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         entity.sprite.draw(batch)
+        println("(${entity.sprite.x}, ${entity.sprite.y}, ${entity.sprite.width}, ${entity.sprite.height})")
     }
 
     override fun update(deltaTime: Float) {
