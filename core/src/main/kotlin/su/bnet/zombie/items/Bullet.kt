@@ -1,6 +1,7 @@
 package su.bnet.zombie.items
 
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import su.bnet.zombie.ecs.component.MovementComponent
 import su.bnet.zombie.ecs.component.RenderComponent
@@ -16,7 +17,7 @@ class Bullet(
     position: Vector2,
     ttl: Float = 0.71f,
     private val explosion: (position: Vector2) -> Explosion
-) : TtlItem(ttl) {
+) : TtlItem(MathUtils.random(ttl - ttl * 0.5f, ttl + ttl * 0.5f)) {
     private val rc = RenderComponent(sprite)
     private val tc = TransformationComponent(
         position = Vector2(position),
@@ -25,7 +26,7 @@ class Bullet(
         scale = Vector2(GameScreen.World.unitScale, GameScreen.World.unitScale),
     )
     private val vc = MovementComponent(
-        velocity = Vector2(0f, velocity).rotateDeg(direction.angleDeg()),
+        velocity = Vector2(0f, velocity).rotateDeg(MathUtils.random(direction.angleDeg() - 15, direction.angleDeg() + 15)),
         maxVelocity = velocity
     )
 

@@ -35,7 +35,7 @@ class Player(
     private val ac = ActComponent(::onAct)
 
     private val lookAt = Vector2()
-    private val fire = Delay(0.001f, onRun = ::onFire)
+    private val fire = Delay(0.03f, onRun = ::onFire)
 
     val position
         get() = tc.position
