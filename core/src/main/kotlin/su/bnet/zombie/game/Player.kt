@@ -35,7 +35,7 @@ class Player(
     private val ac = ActComponent(::onAct)
 
     private val lookAt = Vector2()
-    private val fire = Delay(1f, onRun = ::onFire)
+    private val fire = Delay(0.1f, onRun = ::onFire)
 
     val position
         get() = tc.position
@@ -85,7 +85,8 @@ class Player(
     }
 
     private fun onFire() {
-        ec.send(Add(factory.createExplosion().entity))
+//        ec.send(Add(factory.createExplosion().entity))
+        ec.send(Add(factory.createBullet(Vector2(lookAt).rotateDeg(-90f), tc.position).entity))
         ec.send(Hello("player"))
     }
 }

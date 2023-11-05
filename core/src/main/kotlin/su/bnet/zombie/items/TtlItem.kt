@@ -23,8 +23,14 @@ open class TtlItem(
     }
 
     protected open fun onAct(deltaTime: Float) {
-        println("act")
         life += deltaTime
-        if (life >= ttl) ec.send(Remove(entity))
+        if (life >= ttl) {
+            onDie()
+            ec.send(Remove(entity))
+        }
+    }
+
+    protected open fun onDie() {
+
     }
 }

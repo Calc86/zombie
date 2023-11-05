@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.FitViewport
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
@@ -67,7 +68,7 @@ class GameScreen : KtxScreen {
         val pe = Entity()
 
         player = Player(pe, playerSprite, creator)
-        explosion = creator.createSonicExplosion()
+        explosion = creator.createSonicExplosion(Vector2())
         blow = MyAnimation(Sprite(image), fireAtlas.findRegions("regularExplosion"), 2f)
 
         engine.addEntity(pe)

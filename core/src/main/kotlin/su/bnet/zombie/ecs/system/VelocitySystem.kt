@@ -9,7 +9,7 @@ import su.bnet.zombie.ecs.component.TransformationComponent
 import su.bnet.zombie.ecs.component.VelocityComponent
 import su.bnet.zombie.ecs.require
 
-class VelocitySystem : IteratingSystem(Family.all(TransformationComponent::class.java, VelocityComponent::class.java).get()) {
+class VelocitySystem : IteratingSystem(family) {
     private val tmpAcceleration = Vector2()
     private val tmpVelocity = Vector2()
     private val scalar = Vector2()
@@ -27,11 +27,12 @@ class VelocitySystem : IteratingSystem(Family.all(TransformationComponent::class
         }.also {
             vc.force.set(it)
         }
+        if(vc.name != "bullet") println(acceleration)
         with(vc) {
             // todo frition after zero force
             tmpVelocity.set(velocity)
             tmpVelocity.add(acceleration)
-            if(velocity.len() > max.speed) tmpVelocity.nor().scl(max.speed)
+            if (velocity.len() > max.speed) tmpVelocity.nor().scl(max.speed)
 //            println("v:" + tmpVelocity)
             tmpVelocity
         }.also {
@@ -40,5 +41,9 @@ class VelocitySystem : IteratingSystem(Family.all(TransformationComponent::class
         scalar.set(vc.velocity).scl(deltaTime)
 
         tc.position.add(scalar)
+    }
+
+    companion object {
+        private val family: Family = Family.all(TransformationComponent::class.java, VelocityComponent::class.java).get()
     }
 }

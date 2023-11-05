@@ -6,11 +6,13 @@ import com.badlogic.gdx.math.Vector2
 import ktx.ashley.get
 import ktx.ashley.mapperFor
 
+@Deprecated("use movement")
 class VelocityComponent(
     val velocity: Vector2 = Vector2(),
     val force: Vector2 = Vector2(),
     val friction: Float = 0f,
-    val max: Max = Max()
+    val max: Max = Max(),
+    val name:String = "",
 ) : Component {
     class Max(
         var speed: Float = Float.MAX_VALUE,

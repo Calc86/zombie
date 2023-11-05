@@ -4,18 +4,21 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite
 import su.bnet.zombie.ecs.component.ActComponent
 import su.bnet.zombie.ecs.component.RenderComponent
 import su.bnet.zombie.ecs.component.TransformationComponent
 import su.bnet.zombie.game.screens.GameScreen
+import java.text.FieldPosition
 
 class Explosion(
     textures: Array<TextureAtlas.AtlasRegion>,
     duration: Float,
-    playMode: PlayMode = PlayMode.LOOP
-): TtlItem(duration) {
+    position: Vector2,
+    playMode: PlayMode = PlayMode.NORMAL
+) : TtlItem(duration) {
     private val frameDuration = duration / textures.size
     private val animation = Animation<TextureRegion>(frameDuration, textures, playMode)
     private var sprite = AnimatedSprite(animation).apply {
@@ -23,7 +26,7 @@ class Explosion(
         isUseFrameRegionSize = true
     }
     private val rc = RenderComponent(sprite)
-    private val tc = TransformationComponent()
+    private val tc = TransformationComponent(position = position)
 //    private val ac = ActComponent(::onAct)
 
     init {
@@ -57,6 +60,7 @@ class Explosion(
     }
 
     companion object {
-        fun create(atlas: TextureAtlas, type: Type) = Explosion(atlas.findRegions(type.sets), type.duration)
+        fun create(atlas: TextureAtlas, type: Type, position: Vector2) =
+            Explosion(atlas.findRegions(type.sets), type.duration, position)
     }
 }
