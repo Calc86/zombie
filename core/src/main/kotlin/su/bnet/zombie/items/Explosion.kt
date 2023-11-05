@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite
@@ -60,7 +61,11 @@ class Explosion(
     }
 
     companion object {
-        fun create(atlas: TextureAtlas, type: Type, position: Vector2) =
-            Explosion(atlas.findRegions(type.sets), type.duration, position)
+        fun create(atlas: TextureAtlas, type: Type, position: Vector2, percent: Float = 0.5f) =
+            Explosion(
+                atlas.findRegions(type.sets),
+                MathUtils.random(1 - percent, 1 + percent) * type.duration,
+                position
+            )
     }
 }

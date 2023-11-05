@@ -96,11 +96,12 @@ class GameScreen : KtxScreen {
     }
 
     object World {
+        const val zoom = 1f
         const val unitScale = 1 / 64f
 
         object Screen {
-            const val width = 16f
-            const val height = 9f
+            const val width = 16f * zoom
+            const val height = 9f * zoom
 //            const val width = 9f / 2
 //            const val height = 16f / 2
         }
