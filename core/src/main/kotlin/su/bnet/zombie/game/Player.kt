@@ -14,16 +14,16 @@ import su.bnet.zombie.utility.Delay
 class Player(
     entity: Entity,
     sprite: Sprite,
+    spawnPosition: Vector2,
     private val factory: ItemsFactory
 ) {
     private val rc = RenderComponent(sprite)
-    private val tc = TransformationComponent(
-        size = Vector2(sprite.width, sprite.height),
-        scale = Vector2(GameScreen.GameWorld.unitScale, GameScreen.GameWorld.unitScale),
-    ).apply {
-        sprite.setSize(size.x, size.y)
-        sprite.setOriginCenter()
-        angle = 70f // for test
+    private val tc = TransformationComponent().apply {
+        size.set(sprite.width, sprite.height)
+        scale.set(GameScreen.GameWorld.unitScale, GameScreen.GameWorld.unitScale)
+//        sprite.setOriginCenter()
+        position.set(spawnPosition)
+        //angle = 70f // for test
     }
 
     private val mc = MovementComponent(

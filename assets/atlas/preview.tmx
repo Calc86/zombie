@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="10" nextobjectid="15">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="22">
  <tileset firstgid="1" source="tiles.tsx"/>
  <layer id="1" name="background" width="20" height="20" locked="1">
   <data encoding="csv">
@@ -195,6 +195,21 @@
   </object>
   <object id="14" name="spawn" x="53.3333" y="968">
    <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="10" name="test">
+  <object id="15" name="rect" x="412.238" y="56.4116" width="80.278" height="78.1083"/>
+  <object id="18" name="ellipse" x="627.036" y="95.4657" width="119.332" height="75.9386">
+   <ellipse/>
+  </object>
+  <object id="19" name="poly-closed" x="839.664" y="101.975">
+   <polygon points="0,0 112.823,30.3755 67.2599,117.162 75.9386,164.895 -65.0903,138.859 -8.6787,91.1264"/>
+  </object>
+  <object id="20" name="poly-open" x="551.098" y="321.112">
+   <polyline points="0,0 -78.1083,-69.4296 75.9386,-71.5993 80.278,-41.2238"/>
+  </object>
+  <object id="21" name="text" x="105.518" y="247.365" width="112.514" height="84.8697">
+   <text pixelsize="32" wrap="1">Some text</text>
   </object>
  </objectgroup>
 </map>

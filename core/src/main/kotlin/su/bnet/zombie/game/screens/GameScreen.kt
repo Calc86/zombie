@@ -8,12 +8,16 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.viewport.FitViewport
 import ktx.app.KtxScreen
 import ktx.app.clearScreen
 import ktx.assets.disposeSafely
 import ktx.assets.toInternalFile
+import ktx.tiled.layer
+import ktx.tiled.x
+import ktx.tiled.y
 import su.bnet.zombie.ecs.system.*
 import su.bnet.zombie.game.ItemsFactory
 import su.bnet.zombie.game.Player
@@ -36,6 +40,7 @@ class GameScreen : KtxScreen {
         //setOriginCenter()
         //rotation = 70f
     }
+    private val  map = TmxMapLoader().load("atlas/preview.tmx")
 
     private val batch = SpriteBatch()
     private val engine = Engine()
@@ -45,9 +50,14 @@ class GameScreen : KtxScreen {
     private val es = EventSystem(engine)
     private val act = ActSystem()
     private val ts = TransformationSystem()
+
     //private val vs = VelocitySystem()
     private val ms = MovementSystem()
-    private val rs = RenderSystem(camera, batch)
+    private val rs = RenderSystem(
+        camera,
+        batch,
+        map,
+    )
 
     private val creator = ItemsFactory(fireAtlas)
 
@@ -67,7 +77,8 @@ class GameScreen : KtxScreen {
         Gdx.input.inputProcessor = gis;
         val pe = Entity()
 
-        player = Player(pe, playerSprite, creator)
+        val po = map.layer("unit").objects.get("player")
+        player = Player(pe, playerSprite, Vector2(po.x, po.y).scl(GameWorld.unitScale), creator)
         explosion = creator.createSonicExplosion(Vector2())
         blow = MyAnimation(Sprite(image), fireAtlas.findRegions("regularExplosion"), 2f)
 
@@ -96,7 +107,7 @@ class GameScreen : KtxScreen {
     }
 
     object GameWorld {
-        const val zoom = 2f
+        const val zoom = 1f
         const val unitScale = 1 / 64f
 
         object Screen {
