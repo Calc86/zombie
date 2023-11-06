@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2
 import su.bnet.zombie.ecs.component.MovementComponent
 import su.bnet.zombie.ecs.component.RenderComponent
 import su.bnet.zombie.ecs.component.TransformationComponent
-import su.bnet.zombie.ecs.component.VelocityComponent
 import su.bnet.zombie.ecs.events.Add
 import su.bnet.zombie.game.screens.GameScreen
 
@@ -23,10 +22,11 @@ class Bullet(
         position = Vector2(position),
         angle = direction.angleDeg(),
         size = Vector2(sprite.width, sprite.height),
-        scale = Vector2(GameScreen.World.unitScale, GameScreen.World.unitScale),
+        scale = Vector2(GameScreen.GameWorld.unitScale, GameScreen.GameWorld.unitScale),
     )
+    val randomAngle = 80f
     private val vc = MovementComponent(
-        velocity = Vector2(0f, velocity).rotateDeg(MathUtils.random(direction.angleDeg() - 15, direction.angleDeg() + 15)),
+        velocity = Vector2(0f, velocity).rotateDeg(MathUtils.random(direction.angleDeg() - randomAngle, direction.angleDeg() + randomAngle)),
         maxVelocity = velocity
     )
 

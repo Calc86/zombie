@@ -2,7 +2,6 @@ package su.bnet.zombie.utility
 
 class Delay(
     var delay: Float,
-    private val onEnd: () -> Unit = {},
     private val onRun: () -> Unit
 ) {
     private var currentDelay = 0f
@@ -16,10 +15,7 @@ class Delay(
 
     fun update(deltaTime: Float) {
         currentDelay -= deltaTime
-        if (currentDelay < 0f) {    // <= or < - plus one frame and onEnd routine
-            currentDelay = 0f
-            onEnd.invoke()
-        }
+        if (currentDelay <= 0f) currentDelay = 0f
     }
 
     fun run() {

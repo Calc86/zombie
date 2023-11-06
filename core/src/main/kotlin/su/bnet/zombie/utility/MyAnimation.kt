@@ -41,7 +41,7 @@ class MyAnimation(
         tc.apply {
 //            size.set(sprite.width * GameScreen.World.unitScale, sprite.height * GameScreen.World.unitScale)
             size.set(sprite.width, sprite.height)
-            scale.set(GameScreen.World.unitScale, GameScreen.World.unitScale)
+            scale.set(GameScreen.GameWorld.unitScale, GameScreen.GameWorld.unitScale)
             sprite.setSize(size.x, size.y)
             sprite.setPosition(0f, 0f)
             sprite.setOriginCenter()

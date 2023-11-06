@@ -19,7 +19,7 @@ class Player(
     private val rc = RenderComponent(sprite)
     private val tc = TransformationComponent(
         size = Vector2(sprite.width, sprite.height),
-        scale = Vector2(GameScreen.World.unitScale, GameScreen.World.unitScale),
+        scale = Vector2(GameScreen.GameWorld.unitScale, GameScreen.GameWorld.unitScale),
     ).apply {
         sprite.setSize(size.x, size.y)
         sprite.setOriginCenter()

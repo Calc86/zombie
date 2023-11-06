@@ -8,11 +8,9 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import net.dermetfan.gdx.graphics.g2d.AnimatedSprite
-import su.bnet.zombie.ecs.component.ActComponent
 import su.bnet.zombie.ecs.component.RenderComponent
 import su.bnet.zombie.ecs.component.TransformationComponent
 import su.bnet.zombie.game.screens.GameScreen
-import java.text.FieldPosition
 
 class Explosion(
     textures: Array<TextureAtlas.AtlasRegion>,
@@ -44,7 +42,7 @@ class Explosion(
         tc.apply {
 //            size.set(sprite.width * GameScreen.World.unitScale, sprite.height * GameScreen.World.unitScale)
             size.set(sprite.width, sprite.height)
-            scale.set(GameScreen.World.unitScale, GameScreen.World.unitScale)
+            scale.set(GameScreen.GameWorld.unitScale, GameScreen.GameWorld.unitScale)
             sprite.setSize(size.x, size.y)
             sprite.setPosition(0f, 0f)
             sprite.setOriginCenter()

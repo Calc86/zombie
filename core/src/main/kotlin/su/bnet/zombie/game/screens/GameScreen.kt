@@ -23,7 +23,7 @@ import su.bnet.zombie.utility.MyAnimation
 
 class GameScreen : KtxScreen {
     private val camera = OrthographicCamera()
-    private val viewport = FitViewport(World.Screen.width, World.Screen.height, camera)
+    private val viewport = FitViewport(GameWorld.Screen.width, GameWorld.Screen.height, camera)
     private val image = Texture("logo.png".toInternalFile(), true).apply {
         setFilter(
             Texture.TextureFilter.Linear,
@@ -60,7 +60,7 @@ class GameScreen : KtxScreen {
     }
 
     override fun show() {
-        camera.setToOrtho(false, World.Screen.width, World.Screen.height)
+        camera.setToOrtho(false, GameWorld.Screen.width, GameWorld.Screen.height)
         camera.update();
 //        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f)
 //        camera.update()
@@ -95,8 +95,8 @@ class GameScreen : KtxScreen {
         batch.disposeSafely()
     }
 
-    object World {
-        const val zoom = 1f
+    object GameWorld {
+        const val zoom = 2f
         const val unitScale = 1 / 64f
 
         object Screen {

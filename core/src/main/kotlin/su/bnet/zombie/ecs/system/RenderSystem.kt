@@ -23,7 +23,7 @@ class RenderSystem(
     private val renderer: OrthogonalTiledMapRenderer
     init {
         map = TmxMapLoader().load("atlas/preview.tmx")
-        renderer = OrthogonalTiledMapRenderer(map, GameScreen.World.unitScale, batch)
+        renderer = OrthogonalTiledMapRenderer(map, GameScreen.GameWorld.unitScale, batch)
         renderer.setView(camera)
     }
 
