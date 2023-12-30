@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.maps.MapObject
 import com.badlogic.gdx.maps.tiled.TiledMap
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
 import com.badlogic.gdx.maps.tiled.TmxMapLoader
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.math.*
@@ -33,6 +34,16 @@ class RenderSystem(
         object : OrthogonalTiledMapRenderer(map, GameScreen.GameWorld.unitScale, batch) {
             override fun renderObject(o: MapObject) {
                 drawShape(o.shape, shapeRenderer)
+            }
+
+            override fun renderTileLayer(layer: TiledMapTileLayer) {
+                super.renderTileLayer(layer)
+
+                repeat(layer.width) {x ->
+                    repeat(layer.height) { y ->
+                        val cell = layer.getCell(x, y)
+                    }
+                }
             }
         }
 
